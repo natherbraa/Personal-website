@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي الشخصي</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9); /* تعديل الخلفية لتناسب الوضع النهاري */
+            color: #333; /* تعديل لون النص للظلام الواضح */
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* الوضع الليلي */
+        body.dark {
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6); /* تعديل الخلفية لتناسب الوضع النهاري */
+            box-shadow: 5px 5px 15px #c8d6c5, -5px -5px 15px #ffffff;
+            border-radius: 0 0 20px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header.dark {
+            background: #1e1e1e;
+            box-shadow: 5px 5px 15px #000, -5px -5px 15px #333;
+        }
+
+        .language-toggle {
+            background: linear-gradient(145deg, #4caf50, #43a047);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        header.dark .language-toggle {
+            background: linear-gradient(145deg, #333, #222);
+            color: #fff;
+        }
+
+        .language-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle {
+            background: linear-gradient(145deg, #4caf50, #43a047);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        header.dark .theme-toggle {
+            background: linear-gradient(145deg, #333, #222);
+            color: #fff;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .achievement-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9); /* تعديل الخلفية لتناسب الوضع النهاري */
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px #c8d6c5, -5px -5px 15px #ffffff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            color: inherit;
+        }
+
+        body.dark .achievement-item {
+            background: linear-gradient(145deg, #333, #222);
+            box-shadow: 5px 5px 15px #000, -5px -5px 15px #333;
+            color: #e0e0e0;
+        }
+
+        .achievement-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 10px 10px 20px #aaa, -10px -10px 20px #fff;
+        }
+
+        .achievement-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            box-shadow: 5px 5px 15px #c8d6c5, -5px -5px 15px #ffffff;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        body.dark .social a {
+            background: linear-gradient(145deg, #333, #222);
+            box-shadow: 5px 5px 15px #000, -5px -5px 15px #333;
+        }
+
+        .social a:hover {
+            transform: scale(1.1);
+            box-shadow: 10px 10px 20px #aaa, -10px -10px 20px #fff;
+        }
+
+        .social a img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        footer {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9); /* تعديل الخلفية لتناسب الوضع النهاري */
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #333; /* تعديل اللون هنا */
+            box-shadow: 5px 5px 15px #c8d6c5, -5px -5px 15px #ffffff;
+        }
+
+        body.dark footer {
+            background: #1e1e1e;
+            color: #bbb;
+            box-shadow: 5px 5px 15px #000, -5px -5px 15px #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="language-toggle" onclick="changeLanguage()">AR</button>
+        <button class="theme-toggle" onclick="toggleTheme()">الوضع الليلي</button>
+    </header>
+
+    <section id="about" class="profile">
+        <img src="https://j.top4top.io/p_3304cmeag1.jpg" alt="صورتي">
+        <h2 id="name">نذير براء منذر</h2>
+        <p id="bio">شاب عراقي أعيش شغفي بتصميم وبرمجة كل ما يمكنه تحسين التجربة الرقمية. أؤمن بأن التكنولوجيا ليست مجرد أدوات، بل وسيلة للتعبير والإبداع. أهلاً بكم في موقعي الشخصي!</p>
+    </section>
+
+    <section id="achievements">
+        <h2 id="achievementsTitle">الخبرات</h2>
+        <div class="achievements">
+            <div class="achievement-item">
+                <img src="https://c.top4top.io/p_3304ksr491.png" alt="إنجاز 1">
+                <p id="achievement1">خبرة منذ 2020 في تصميم وبرمجة المواقع بواسطة HTML,CSS,JS </p>
+            </div>
+            <div class="achievement-item">
+                <img src="https://g.top4top.io/p_3304kx7b51.png" alt="إنجاز 2">
+                <p id="achievement2">خبرة منذ 2024 في تصميم و برمجة تطبيقات Android,Ios بواسطة Flutter</p>
+            </div>
+            <div class="achievement-item">
+                <img src="https://h.top4top.io/p_33049iolw1.png" alt="إنجاز 3">
+                <p id="achievement3">خبرة منذ 2019 في تصميم الصور و الفيديوهات و المؤثرات البصرية بواسطة تطبيقات Adobe,Photoshop,Premiere pro,After effects </p>
+            </div>
+            <div class="achievement-item">
+                <img src="https://c.top4top.io/p_3304s2jt11.png" alt="إنجاز 4">
+                <p id="achievement4">خبرة منذ 2023 في تصميم و برمجة الانظمة الألكترونية بواسطة C#,Visual basic,Sql </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 id="contactTitle">تواصل معي</h2>
+        <div class="social">
+            <a href="https://t.me/nnco4" target="_blank">
+                <img src="https://i.top4top.io/p_33034pfqq1.png" alt="Telegram">
+            </a>
+            <a href="https://www.instagram.com/nnco4/" target="_blank">
+                <img src="https://k.top4top.io/p_33038tcip1.png" alt="Instagram">
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=9647736638090" target="_blank">
+                <img src="https://k.top4top.io/p_3304btepc1.png" alt="WhatsApp">
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p id="footerText">© 2025 جميع الحقوق محفوظة. تصميم وتطوير بواسطة نذير براء منذر.</p>
+    </footer>
+
+    <script>
+        let isArabic = true;
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.querySelector('header').classList.toggle('dark');
+            const themeToggleButton = document.querySelector('.theme-toggle');
+            themeToggleButton.textContent = document.body.classList.contains('dark') ? (isArabic ? "الوضع النهاري" : "Day Mode") : (isArabic ? "الوضع الليلي" : "Night Mode");
+        }
+
+        function changeLanguage() {
+            isArabic = !isArabic;
+
+            const languageTexts = {
+                name: ["نذير براء منذر", "Nather Baraa Munther"],
+                bio: ["شاب عراقي أعيش شغفي بتصميم وبرمجة كل ما يمكنه تحسين التجربة الرقمية. أؤمن بأن التكنولوجيا ليست مجرد أدوات، بل وسيلة للتعبير والإبداع. أهلاً بكم في موقعي الشخصي!", "An Iraqi youth living my passion for designing and programming anything that can improve the digital experience. I believe that technology is not just tools, but a means of expression and creativity. Welcome to my personal website!"],
+                achievementsTitle: ["الخبرات", "Skills"],
+                achievement1: ["خبرة منذ 2020 في تصميم وبرمجة المواقع بواسطة HTML,CSS,JS", "Experience since 2020 in website design and programming using HTML, CSS, JS"],
+                achievement2: ["خبرة منذ 2024 في تصميم و برمجة تطبيقات Android,Ios بواسطة Flutter", "Experience since 2024 in designing and programming Android, iOS apps using Flutter"],
+                achievement3: ["خبرة منذ 2019 في تصميم الصور و الفيديوهات و المؤثرات البصرية بواسطة تطبيقات Adobe,Photoshop,Premiere pro,After effects", "Experience since 2019 in designing images, videos, and visual effects using Adobe apps, Photoshop, Premiere pro, After effects"],
+                achievement4: ["خبرة منذ 2023 في تصميم و برمجة الانظمة الألكترونية بواسطة C#,Visual basic,Sql", "Experience since 2023 in designing and programming electronic systems using C#, Visual Basic, SQL"],
+                contactTitle: ["تواصل معي", "Contact Me"],
+                footerText: ["© 2025 جميع الحقوق محفوظة. تصميم وتطوير بواسطة نذير براء منذر.", "© 2025 All rights reserved. Designed and developed by Nather Baraa Munther."]
+            };
+
+            // تحديث النصوص
+            document.getElementById("name").textContent = isArabic ? languageTexts.name[0] : languageTexts.name[1];
+            document.getElementById("bio").textContent = isArabic ? languageTexts.bio[0] : languageTexts.bio[1];
+            document.getElementById("achievementsTitle").textContent = isArabic ? languageTexts.achievementsTitle[0] : languageTexts.achievementsTitle[1];
+            document.getElementById("achievement1").textContent = isArabic ? languageTexts.achievement1[0] : languageTexts.achievement1[1];
+            document.getElementById("achievement2").textContent = isArabic ? languageTexts.achievement2[0] : languageTexts.achievement2[1];
+            document.getElementById("achievement3").textContent = isArabic ? languageTexts.achievement3[0] : languageTexts.achievement3[1];
+            document.getElementById("achievement4").textContent = isArabic ? languageTexts.achievement4[0] : languageTexts.achievement4[1];
+            document.getElementById("contactTitle").textContent = isArabic ? languageTexts.contactTitle[0] : languageTexts.contactTitle[1];
+            document.getElementById("footerText").textContent = isArabic ? languageTexts.footerText[0] : languageTexts.footerText[1];
+
+            // تغيير اللغة في الزر
+            const langToggleButton = document.querySelector('.language-toggle');
+            langToggleButton.textContent = isArabic ? "AR" : "EN";
+
+            // تحديث نص الزر الخاص بـ "الوضع الليلي"
+            const themeToggleButton = document.querySelector('.theme-toggle');
+            themeToggleButton.textContent = document.body.classList.contains('dark') ? (isArabic ? "الوضع النهاري" : "Day Mode") : (isArabic ? "الوضع الليلي" : "Night Mode");
+
+            // تغيير الاتجاه
+            if (isArabic) {
+                document.documentElement.setAttribute("dir", "rtl");
+                document.documentElement.setAttribute("lang", "ar");
+            } else {
+                document.documentElement.setAttribute("dir", "ltr");
+                document.documentElement.setAttribute("lang", "en");
+            }
+
+            // تحريك زر الوضع الليلي عند تغيير اللغة
+            themeToggleButton.style.order = isArabic ? "1" : "0";
+        }
+    </script>
+</body>
+</html>
